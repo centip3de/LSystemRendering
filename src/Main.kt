@@ -1,3 +1,8 @@
+import LSystems.Parser.Meaning
+import LSystems.Parser.Parser
+import LSystems.Parser.Rule
+import LSystems.Parser.TurtleCommand
+import LSystems.Turtle.Turtle
 import java.awt.BasicStroke
 import java.awt.Graphics
 import java.awt.Graphics2D
@@ -5,40 +10,6 @@ import java.awt.geom.Line2D
 import java.util.*
 import javax.swing.JFrame
 import javax.swing.JPanel
-
-fun dragonCurve() : ArrayList<TurtleCommand>
-{
-    /*  Creates the Dragon Curve.
-        Args:
-            None
-        Returns:
-            An ArrayList<TurtleCommand> filled with all the TurtleCommands needed to draw the Dragon Curve.
-     */
-
-    var rules : ArrayList<Rule>         = ArrayList<Rule>()
-    var meanings : ArrayList<Meaning>   = ArrayList<Meaning>()
-
-    /*  Production rules:
-        Start -> FX
-        X -> X+YF+
-        Y -> -FX-Y
-    */
-    val parser = Parser("FX")
-    rules.add(Rule('X', "X+YF+"))
-    rules.add(Rule('Y', "-FX-Y"))
-    parser.generate(10, rules)
-
-    /*  Meanings:
-        F = Draw forward
-        - = Rotate right 90 degrees
-        + = Rotate left 90 degrees
-    */
-    meanings.add(Meaning('F', TurtleCommand(0.0, true)))
-    meanings.add(Meaning('-', TurtleCommand(90.0, false)))
-    meanings.add(Meaning('+', TurtleCommand(-90.0, false)))
-
-    return parser.parse(meanings)
-}
 
 fun buildGUI()
 {
@@ -54,15 +25,15 @@ fun buildGUI()
     val frame_width  : Int  = 1000
     frame.setSize(frame_width, frame_height)
 
-    /* Turtle test */
-    val turtle : Turtle                 = Turtle(200.0, 500.0)
+    /* Turtle test
+    val turtle : Turtle = Turtle(200.0, 500.0)
     val commands = dragonCurve()
     for (command in commands)
     {
         val (angle, forward) = command
-        if(forward)
+        if(forward != 0.0)
         {
-            turtle.forward(10.0, frame)
+            turtle.forward(forward, frame)
         }
         else
         {
@@ -88,6 +59,7 @@ fun buildGUI()
                 }
             }
     })
+    */
 
     frame.defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
     frame.show()
