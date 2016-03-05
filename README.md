@@ -8,4 +8,4 @@ Currently supported L-systems:
 * Dragon curve
 * Sierpinski triangle
 
-All currently support L-systems are shown as functions in Main.kt as an example.
+All currently support L-systems are shown in the examples directory.
