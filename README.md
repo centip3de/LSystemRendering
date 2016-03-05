@@ -7,5 +7,6 @@ Currently supported L-systems:
 * Koch curve
 * Dragon curve
 * Sierpinski triangle
+* Fractal plant example from Wikipedia
 
 All currently support L-systems are shown in the examples directory.

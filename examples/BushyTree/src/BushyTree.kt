@@ -10,47 +10,50 @@ import java.util.*
 import javax.swing.JFrame
 import javax.swing.JPanel
 
-fun fractalPlant() : ArrayList<TurtleCommand>
+fun bushyTree() : ArrayList<TurtleCommand>
 {
-    var rules       : ArrayList<Rule>       = ArrayList<Rule>()
-    var meanings    : ArrayList<Meaning>    = ArrayList<Meaning>()
-    val parser      : Parser                = Parser("X")
+    var rules : ArrayList<Rule> = ArrayList<Rule>()
+    var meanings : ArrayList<Meaning> = ArrayList<Meaning>()
+    val parser = Parser("F")
 
-    /*  Production rules:
-        X -> F-[[X]+X]+F[+FX]-X
-        F -> FF
+    /*  Production Rules:
+        F -> FF-[-F+F+F]+[+F-F-F]
      */
-    rules.add(Rule('X', "F-[[X]+X]+F[+FX]-X"))
-    rules.add(Rule('F', "FF"))
-    val generated : String = parser.generate(6, rules)
+    rules.add(Rule('F', "FF-[-F+F+F]+[+F-F-F]"))
+    val generated = parser.generate(5, rules)
 
     /*  Meanings:
-        F = Draw forward
-        - = Turn left 25 degrees
-        + = Turn right 25 degrees
-        X = Nothing
-        [ = Push current position and angle to stack
-        ] = Pop current position and angle from stack, set turtle to it.
+        F = Forward 5
+        + = Right 25
+        - = Left 25
+        [ = Push
+        ] = Pop
      */
     meanings.add(Meaning('F', TurtleCommand(0.0, 5.0, StackCommand(false, false))))
-    meanings.add(Meaning('-', TurtleCommand(-25.0, 0.0, StackCommand(false, false))))
     meanings.add(Meaning('+', TurtleCommand(25.0, 0.0, StackCommand(false, false))))
+    meanings.add(Meaning('-', TurtleCommand(-25.0, 0.0, StackCommand(false, false))))
     meanings.add(Meaning('[', TurtleCommand(0.0, 0.0, StackCommand(true, false))))
     meanings.add(Meaning(']', TurtleCommand(0.0, 0.0, StackCommand(false, true))))
-
     return parser.parse(meanings, generated)
 }
 
 fun main(args: Array<String>)
 {
-   val frame               = JFrame("Fractal Plant")
+    /*  Entry point of the program.
+        Args:
+            args : Array<string> - All command line arguments.
+        Returns:
+           Unit
+     */
+
+    val frame               = JFrame("Bushy Tree")
     val frame_height : Int  = 800
     val frame_width  : Int  = 1000
     frame.setSize(frame_width, frame_height)
 
-    val turtle : Turtle = Turtle(300.0, 800.0)
+    val turtle : Turtle = Turtle(300.0, 700.0)
     turtle.setAngle(-90.0)
-    val commands = fractalPlant()
+    val commands = bushyTree()
     for (command in commands)
     {
         val (angle, forward, stackCommand) = command
