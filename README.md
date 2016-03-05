@@ -15,5 +15,6 @@ Current L-system examples:
 * Dragon curve
 * Sierpinski triangle
 * Fractal plant example from Wikipedia
+* Bushy plant example from http://berniepope.id.au/lsystem.html
 
 All L-systems examples are shown in the examples directory.
