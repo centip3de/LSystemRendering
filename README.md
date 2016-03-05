@@ -2,11 +2,18 @@ L-System Rendering
 ====================
 A project that aims to progmatically render L-systems through a custom turtle graphics library, given the L-systems production rules and associated meanings.
 
-Currently supported L-systems:
+Current L-system grammar rules supported:
+------------------------------------------
+* Move forward x units
+* Rotate x degrees in y direction
+* Push current position and angle to stack
+* Pop current position and angle from stack
+
+Current L-system examples:
 -------------------------------
 * Koch curve
 * Dragon curve
 * Sierpinski triangle
 * Fractal plant example from Wikipedia
 
-All currently support L-systems are shown in the examples directory.
+All L-systems examples are shown in the examples directory.
