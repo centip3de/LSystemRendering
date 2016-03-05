@@ -3,7 +3,8 @@ import java.awt.Color
 import javax.swing.JFrame
 import java.util.*
 
-data class Position(val x : Double, val y : Double)
+data class PositionAngle(var x : Double, var y : Double, var angle : Double)
+data class Position(var x : Double, var y : Double)
 data class Line(val posOne : Position, val posTwo : Position)
 
 class Turtle(var x : Double, var y : Double)
@@ -14,12 +15,22 @@ class Turtle(var x : Double, var y : Double)
             y : Double - The y starting position
      */
 
-    private var penDown : Boolean   = true
-    private var angle : Double      = 0.0
-    private var color : Color       = Color.BLACK
-    private var width : Float       = 1f
+    public var stack : Stack<PositionAngle> = Stack<PositionAngle>()
+    private var penDown : Boolean           = true
+    private var angle : Double              = 0.0
+    private var color : Color               = Color.BLACK
+    private var width : Float               = 1f
+    private var actions : ArrayList<Line>   = ArrayList<Line>()
 
-    private var actions : ArrayList<Line> = ArrayList<Line>()
+    fun setAngle(newAngle : Double)
+    {
+        angle = newAngle
+    }
+
+    fun getAngle() : Double
+    {
+        return angle
+    }
 
     fun getWidth() : Float
     {

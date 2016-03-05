@@ -1,7 +1,5 @@
 
-import LSystems.Parser.Meaning
-import LSystems.Parser.Parser
-import LSystems.Parser.Rule
+import LSystems.Parser.*
 import java.awt.BasicStroke
 import java.awt.Graphics
 import java.awt.Graphics2D
@@ -9,7 +7,6 @@ import java.awt.geom.Line2D
 import java.util.*
 import javax.swing.JFrame
 import javax.swing.JPanel
-import LSystems.Parser.TurtleCommand
 import LSystems.Turtle.Turtle
 
 fun dragonCurve() : ArrayList<TurtleCommand>
@@ -39,9 +36,9 @@ fun dragonCurve() : ArrayList<TurtleCommand>
         - = Rotate right 90 degrees
         + = Rotate left 90 degrees
     */
-    meanings.add(Meaning('F', TurtleCommand(0.0, 10.0)))
-    meanings.add(Meaning('-', TurtleCommand(90.0, 0.0)))
-    meanings.add(Meaning('+', TurtleCommand(-90.0, 0.0)))
+    meanings.add(Meaning('F', TurtleCommand(0.0, 10.0, StackCommand(false, false))))
+    meanings.add(Meaning('-', TurtleCommand(90.0, 0.0, StackCommand(false, false))))
+    meanings.add(Meaning('+', TurtleCommand(-90.0, 0.0, StackCommand(false, false))))
 
     //println("${generated}")
     return parser.parse(meanings, generated) //generated)
@@ -63,7 +60,7 @@ fun main(args: Array<String>)
         {
             turtle.forward(forward, frame)
         }
-        else
+        else if(angle != 0.0)
         {
             turtle.turn(angle)
         }

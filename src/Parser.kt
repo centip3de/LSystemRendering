@@ -1,7 +1,8 @@
 package LSystems.Parser
 import java.util.*
 
-data class TurtleCommand(val rotation: Double, val forward : Double)
+data class StackCommand(val push : Boolean, val pop : Boolean)
+data class TurtleCommand(val rotation: Double, val forward : Double, val stackCommand : StackCommand)
 /*  A data class for Turtle commands.
     Members:
         rotation : Double - The degree of rotation to apply

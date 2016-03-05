@@ -1,8 +1,6 @@
 
-import LSystems.Parser.Meaning
-import LSystems.Parser.Parser
-import LSystems.Parser.Rule
-import LSystems.Parser.TurtleCommand
+import LSystems.Parser.*
+import LSystems.Turtle.Position
 import LSystems.Turtle.Turtle
 import java.awt.BasicStroke
 import java.awt.Graphics
@@ -32,6 +30,7 @@ fun sierpinskiTriangle() : ArrayList<TurtleCommand>
     val parser = Parser("A")
     rules.add(Rule('A', "+B-A-B+"))
     rules.add(Rule('B', "-A+B+A-"))
+    val generated : String = parser.generate(8, rules)
 
     /*  Meanings:
         A = Draw forward
@@ -39,11 +38,10 @@ fun sierpinskiTriangle() : ArrayList<TurtleCommand>
         + = Turn left by 60 degrees
         - = Turn right by 60 degrees
     */
-    meanings.add(Meaning('A', TurtleCommand(0.0, 2.0)))
-    meanings.add(Meaning('B', TurtleCommand(0.0, 2.0)))
-    meanings.add(Meaning('-', TurtleCommand(60.0, 0.0)))
-    meanings.add(Meaning('+', TurtleCommand(-60.0, 0.0)))
-    val generated : String = parser.generate(8, rules)
+    meanings.add(Meaning('A', TurtleCommand(0.0, 2.0, StackCommand(false, false))))
+    meanings.add(Meaning('B', TurtleCommand(0.0, 2.0, StackCommand(false, false))))
+    meanings.add(Meaning('-', TurtleCommand(60.0, 0.0, StackCommand(false, false))))
+    meanings.add(Meaning('+', TurtleCommand(-60.0, 0.0, StackCommand(false, false))))
 
     return parser.parse(meanings, generated)
 }
@@ -59,12 +57,12 @@ fun main(args: Array<String>)
     val commands = sierpinskiTriangle()
     for (command in commands)
     {
-        val (angle, forward) = command
+        val (angle, forward, stackCommand) = command
         if(forward != 0.0)
         {
             turtle.forward(forward, frame)
         }
-        else
+        else if(angle != 0.0)
         {
             turtle.turn(angle)
         }
