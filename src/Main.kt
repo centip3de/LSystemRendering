@@ -11,24 +11,6 @@ import java.util.*
 import javax.swing.JFrame
 import javax.swing.JPanel
 
-fun fractalPlant() : ArrayList<TurtleCommand>
-{
-    var rules       : ArrayList<Rule>       = ArrayList<Rule>()
-    var meanings    : ArrayList<Meaning>    = ArrayList<Meaning>()
-    val parser      : Parser                = Parser("X")
-
-    rules.add(Rule('X', "F-[[X]+X]+F[+FX]-X"))
-    rules.add(Rule('F', "FF"))
-    val generated : String = parser.generate(6, rules)
-
-    meanings.add(Meaning('F', TurtleCommand(0.0, 5.0, StackCommand(false, false))))
-    meanings.add(Meaning('-', TurtleCommand(-25.0, 0.0, StackCommand(false, false))))
-    meanings.add(Meaning('+', TurtleCommand(25.0, 0.0, StackCommand(false, false))))
-    meanings.add(Meaning('[', TurtleCommand(0.0, 0.0, StackCommand(true, false))))
-    meanings.add(Meaning(']', TurtleCommand(0.0, 0.0, StackCommand(false, true))))
-    return parser.parse(meanings, generated)
-}
-
 fun buildGUI()
 {
     /*  Builds the GUI, setting up the paintComponent for Turtle rendering.
@@ -44,34 +26,6 @@ fun buildGUI()
     frame.setSize(frame_width, frame_height)
 
     val turtle : Turtle = Turtle(300.0, 800.0)
-    turtle.setAngle(-90.0)
-    val commands = fractalPlant()
-    for (command in commands)
-    {
-        val (angle, forward, stackCommand) = command
-        val (push, pop) = stackCommand
-        if(forward != 0.0)
-        {
-            turtle.forward(forward, frame)
-        }
-        else if(push)
-        {
-            val x = turtle.x
-            val y = turtle.y
-            turtle.stack.push(PositionAngle(x, y, turtle.getAngle()))
-        }
-        else  if(pop)
-        {
-            val (x, y, stackAngle) = turtle.stack.pop()
-            turtle.x = x
-            turtle.y = y
-            turtle.setAngle(stackAngle)
-        }
-        else
-        {
-            turtle.turn(angle)
-        }
-    }
 
     frame.add(object : JPanel()
     {
