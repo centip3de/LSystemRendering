@@ -49,24 +49,14 @@ fun sierpinskiTriangle() : ArrayList<TurtleCommand>
 fun main(args: Array<String>)
 {
     val frame               = JFrame("Sierpinski Triangle")
+    val render : Render     = Render(frame)
     val frame_height : Int  = 800
     val frame_width  : Int  = 1000
     frame.setSize(frame_width, frame_height)
 
     val turtle : Turtle = Turtle(200.0, 500.0)
-    val commands = sierpinskiTriangle()
-    for (command in commands)
-    {
-        val (angle, forward, stackCommand) = command
-        if(forward != 0.0)
-        {
-            turtle.forward(forward, frame)
-        }
-        else if(angle != 0.0)
-        {
-            turtle.turn(angle)
-        }
-    }
+    render.render(turtle, sierpinskiTriangle())
+
 
     frame.add(object : JPanel()
     {

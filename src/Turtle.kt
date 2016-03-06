@@ -96,7 +96,6 @@ class Turtle(var x : Double, var y : Double)
         if(penDown)
         {
             actions.add(Line(Position(oldX, oldY), Position(x, y)))
-            frame.repaint()
         }
     }
 }

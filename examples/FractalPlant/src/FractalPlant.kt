@@ -43,40 +43,15 @@ fun fractalPlant() : ArrayList<TurtleCommand>
 
 fun main(args: Array<String>)
 {
-   val frame               = JFrame("Fractal Plant")
+    val frame               = JFrame("Fractal Plant")
+    val render : Render     = Render(frame)
     val frame_height : Int  = 800
     val frame_width  : Int  = 1000
     frame.setSize(frame_width, frame_height)
 
     val turtle : Turtle = Turtle(300.0, 800.0)
     turtle.setAngle(-90.0)
-    val commands = fractalPlant()
-    for (command in commands)
-    {
-        val (angle, forward, stackCommand) = command
-        val (push, pop) = stackCommand
-        if(forward != 0.0)
-        {
-            turtle.forward(forward, frame)
-        }
-        else if(push)
-        {
-            val x = turtle.x
-            val y = turtle.y
-            turtle.stack.push(PositionAngle(x, y, turtle.getAngle()))
-        }
-        else  if(pop)
-        {
-            val (x, y, stackAngle) = turtle.stack.pop()
-            turtle.x = x
-            turtle.y = y
-            turtle.setAngle(stackAngle)
-        }
-        else
-        {
-            turtle.turn(angle)
-        }
-    }
+    render.render(turtle, fractalPlant())
 
     frame.add(object : JPanel()
     {

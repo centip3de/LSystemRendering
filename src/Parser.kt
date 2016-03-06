@@ -92,6 +92,7 @@ class Parser(val text : String)
                 if(c == char)
                 {
                     array.add(command)
+                    break
                 }
             }
         }
